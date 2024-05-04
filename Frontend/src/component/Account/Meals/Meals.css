@@ -1,0 +1,45 @@
+/* Styles for the nutrition plan section */
+.meal-item {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the left */
+    justify-content: space-between; /* Distribute space between title and info */
+  }
+  
+  /* Styles for the meal title */
+  .meal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Styles for calorie count */
+  .meal-calories {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px; /* Add spacing between title and info */
+  }
+  
+  /* Styles for additional meal information */
+  .meal-info {
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  /* Styles for list items within meal details */
+  .meal-item ul li {
+    margin-bottom: 8px;
+  }
+  
+  /* Hover effect for meal item */
+  .meal-item:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,27 @@
+.workout-plan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px auto;
+    color: white; /* Set text color to white for the entire section */
+  }
+  
+  /* Existing table styles remain the same */
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: orange; /* Set background color of table headers to orange */
+  }
+  
