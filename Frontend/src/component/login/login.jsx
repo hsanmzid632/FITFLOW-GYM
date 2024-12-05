@@ -7,26 +7,32 @@ import axios from "axios"; // Importez axios
 
 function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Sending login request:", { email, password }); // Log request data
     axios
-      .post("http://localhost:3001/login", { username, password })
+      .post("http://localhost:3001/login", { email, password })
       .then((result) => {
-        console.log(result);
-        if (result.data === "Success") {
+        console.log("Login response:", result); // Log response data
+        if (result.data.status === "success") {
+          console.log("Dispatching loginSuccess event"); // Log before dispatch
           navigate("/"); // Redirect as before
-          localStorage.setItem("isLoggedIn", "true"); // Set login state in storage
-          // Trigger custom event to notify Header component
+          sessionStorage.setItem("isLoggedIn", "true"); // Set login state in session storage
+          console.log('Storing email in sessionStorage:', email); // Debugging log
+          sessionStorage.setItem("userEmail", email); // Store email in session storage
           window.dispatchEvent(new Event("loginSuccess"));
+          alert("LOGIN AVEC SUCCES! Welcome back! Time to crush your fitness goals.");
+        } else {
+          alert(result.data.message); // Show error message from server
         }
       })
-      .then((response) => {
-        alert("LOGIN AVEC SUCCES! Welcome back! Time to crush your fitness goals.");
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error("Login error:", err); // Log error
+        alert("Login failed. Please check your credentials and try again.");
+      });
   };
 
   return (
@@ -36,14 +42,14 @@ function Login() {
         <h2 className="">Login</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="email">Email:</label>
             <input
-              type="text"
+              type="email"
               className="input"
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               onChange={(e) => {
-                setUsername(e.target.value);
+                setEmail(e.target.value);
               }}
             />
           </div>

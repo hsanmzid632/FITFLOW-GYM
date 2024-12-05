@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './Hero.css'
 import Header from "./Header/Header";
 import heart from "../assets/heart.png";
@@ -7,11 +7,24 @@ import hero_image from "../assets/hero_image.png"
 import calories from "../assets/calories.png"
 import { motion } from "framer-motion";
 
-
-
-
 function Hero() {
-    const transition = { duration: 3, type: 'spring' }
+    const transition = { duration: 3, type: 'spring' };
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+
+    useEffect(() => {
+        const handleLoginStatusChange = () => {
+            setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
+        };
+
+        window.addEventListener('loginSuccess', handleLoginStatusChange);
+        window.addEventListener('logout', handleLoginStatusChange);
+
+        return () => {
+            window.removeEventListener('loginSuccess', handleLoginStatusChange);
+            window.removeEventListener('logout', handleLoginStatusChange);
+        };
+    }, []);
+
     return (
         <div className="hero">
             <div className="blur blur-h"></div>
@@ -59,6 +72,11 @@ function Hero() {
                 <div className="hero-buttons">
                     <button className="btn">Get Started</button>
                     <button className="btn">Learn More</button>
+                    {isLoggedIn ? (
+                        <button className="btn">Account</button>
+                    ) : (
+                        <button className="btn">Login</button>
+                    )}
                 </div>
             </div>
             <div className="right-h" >

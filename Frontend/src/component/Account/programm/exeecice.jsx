@@ -11,7 +11,7 @@ import cardio from '../../../assets/archive/cardio/cardio.jpg'
 import './exercice.css';
 
 // Example usage (assuming you have a component to render this data)
-const exeecice = () => {
+function Exeecice() {
   const workoutData = [
     {
       exercise: 'Bench Press',
@@ -98,4 +98,4 @@ const exeecice = () => {
   );
 };
 
-export default exeecice;
+export default Exeecice;

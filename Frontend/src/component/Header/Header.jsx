@@ -5,23 +5,26 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') === 'true');
 
   useEffect(() => {
-    // Détecte les changements de l'état de connexion
-    const handleStorageChange = () => {
-      setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
+    const handleLoginStatusChange = () => {
+      const status = sessionStorage.getItem('isLoggedIn') === 'true';
+      setIsLoggedIn(status);
     };
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('storage', handleLoginStatusChange);
+    window.addEventListener('loginSuccess', handleLoginStatusChange);
 
-    // Supprime l'écouteur d'événement lors du démontage du composant
-    return () => window.removeEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleLoginStatusChange);
+      window.removeEventListener('loginSuccess', handleLoginStatusChange);
+    };
   }, []);
 
   const handleLogout = () => {
-    // Ajoutez la logique de déconnexion
     console.log('Déconnexion...');
-    localStorage.setItem('isLoggedIn', 'false'); // Simule une déconnexion réussie
+    sessionStorage.removeItem('isLoggedIn'); // Remove login state from session storage
+    window.dispatchEvent(new Event('logout')); // Trigger logout event
     navigate('/');
   };
 
@@ -42,10 +45,15 @@ const Header = () => {
           <button>About us</button>
         </a>
         <div>
-          
-        <Link to="/account1">
-                <button>Account</button>
-              </Link>
+          {isLoggedIn ? (
+            <Link to="/account1">
+              <button>Account</button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

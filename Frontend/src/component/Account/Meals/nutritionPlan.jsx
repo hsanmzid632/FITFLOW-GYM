@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Meals.css';
 
 // Example usage (assuming you have a component to render this data)
-const nutritionPlan = () => {
+const NutritionPlan = () => {
   const mealData = [
     {
       meal: 'Breakfast',
@@ -80,4 +80,4 @@ const nutritionPlan = () => {
   );
 };
 
-export default nutritionPlan;
+export default NutritionPlan;

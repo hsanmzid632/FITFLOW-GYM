@@ -16,7 +16,8 @@ const SideNav = () => {
   const handleLogout = () => {
     const shouldLogout = window.confirm("Logged out! Don't forget to track your progress next time.");
     if (shouldLogout) {
-      
+      sessionStorage.removeItem('isLoggedIn');
+      window.location.href = '/';
     }
   };
 
